@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         //Escolha do usuário
         val options = listOf(R.drawable.pedra, R.drawable.papel, R.drawable.tesoura)
+        val txtUserChoice = findViewById<TextView>(R.id.txtUserChoice)
 
         //Resultado final
         val txtResultado = findViewById<TextView>(R.id.txtResultado)
@@ -31,16 +32,19 @@ class MainActivity : AppCompatActivity() {
         //Opção Pedra
         btnPedra.setOnClickListener {
             txtResultado.text = jokenpo(btnPedra.id, options)
+            txtUserChoice.text = "Sua escolha: Pedra"
         }
 
         //Opção Papel
         btnPapel.setOnClickListener {
             txtResultado.text = jokenpo(btnPapel.id, options)
+            txtUserChoice.text = "Sua escolha: Papel"
         }
 
         //Opção Tesoura
         btnTesoura.setOnClickListener {
             txtResultado.text = jokenpo(btnTesoura.id, options)
+            txtUserChoice.text = "Sua escolha: Tesoura"
         }
     }
 
@@ -49,7 +53,19 @@ class MainActivity : AppCompatActivity() {
 
         //Escolha aleatória do computador
         val computerChoice = options.random()
+        val txtComputerChoice: TextView = findViewById(R.id.txtComputerChoice)
+
         imgComputador.setImageResource(computerChoice)
+
+        //Texto da escolha do computador
+        val computerChoiceTxt = when (computerChoice) {
+            R.drawable.pedra -> "Pedra"
+            R.drawable.papel -> "Papel"
+            R.drawable.tesoura -> "Tesoura"
+            else -> "Erro"
+        }
+
+        txtComputerChoice.text = "Minha escolha: $computerChoiceTxt"
 
         //Resultado final
         return when (userChoice) {
@@ -58,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                     R.drawable.pedra -> "Empate!"
                     R.drawable.papel -> "Você perdeu!"
                     R.drawable.tesoura -> "Você ganhou!"
-                    else -> {"Erro"}
+                    else -> "Erro"
                 }
 
             R.id.btnPapel ->
@@ -66,7 +82,7 @@ class MainActivity : AppCompatActivity() {
                     R.drawable.pedra -> "Você ganhou!"
                     R.drawable.papel -> "Empate!"
                     R.drawable.tesoura -> "Você perdeu!"
-                    else -> {"Erro"}
+                    else -> "Erro"
                 }
 
             R.id.btnTesoura ->
@@ -74,10 +90,10 @@ class MainActivity : AppCompatActivity() {
                     R.drawable.pedra -> "Você perdeu!"
                     R.drawable.papel -> "Você ganhou!"
                     R.drawable.tesoura -> "Empate!"
-                    else -> {"Erro"}
+                    else -> "Erro"
                     }
 
-            else -> {"Erro"}
+            else -> "Erro"
         }
     }
 }

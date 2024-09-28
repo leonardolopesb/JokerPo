@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="Vamos jogar?"
         android:textColor="@color/white"
@@ -81,8 +81,9 @@
             android:layout_weight="1"
             android:text="Pedra"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            android:backgroundTint="@android:color/darker_gray" />
+            android:layout_marginEnd="16dp"
+            android:textSize="12sp"
+            android:backgroundTint="@color/midnightblue" />
 
         <Button
             android:id="@+id/btnPapel"
@@ -91,8 +92,9 @@
             android:layout_weight="1"
             android:text="Papel"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            android:backgroundTint="@android:color/darker_gray" />
+            android:layout_marginEnd="16dp"
+            android:textSize="12sp"
+            android:backgroundTint="@color/midnightblue" />
 
         <Button
             android:id="@+id/btnTesoura"
@@ -101,16 +103,17 @@
             android:layout_weight="1"
             android:text="Tesoura"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            android:backgroundTint="@android:color/darker_gray" />
+            android:textSize="12sp"
+            android:backgroundTint="@color/midnightblue" />
     </LinearLayout>
 
     <TextView
+        android:id="@+id/txtUserChoice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="Minha escolha é:"
+        android:text="Sua escolha:"
         android:textColor="@color/white"
         android:textSize="24sp"/>
 
@@ -119,15 +122,25 @@
         android:layout_gravity="center"
         android:layout_width="108dp"
         android:layout_height="108dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="64dp"
         android:contentDescription="Imagem do computador"
         android:src="@drawable/interrogracao" />
+
+    <TextView
+        android:id="@+id/txtComputerChoice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:gravity="center"
+        android:text="Minha escolha:"
+        android:textColor="@color/white"
+        android:textSize="24sp"/>
 
     <TextView
         android:id="@+id/txtResultado"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:text="Resultado"
         android:textColor="@color/white"
