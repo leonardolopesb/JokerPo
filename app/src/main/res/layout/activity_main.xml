@@ -117,24 +117,24 @@
         android:textColor="@color/white"
         android:textSize="24sp"/>
 
+    <TextView
+        android:id="@+id/txtComputerChoice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:gravity="center"
+        android:text="Minha escolha:"
+        android:textColor="@color/white"
+        android:textSize="24sp"/>
+
     <ImageView
         android:id="@+id/imgComputador"
         android:layout_gravity="center"
         android:layout_width="108dp"
         android:layout_height="108dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="Imagem do computador"
         android:src="@drawable/interrogracao" />
-
-    <TextView
-        android:id="@+id/txtComputerChoice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:gravity="center"
-        android:text="Minha escolha:"
-        android:textColor="@color/white"
-        android:textSize="24sp"/>
 
     <TextView
         android:id="@+id/txtResultado"

@@ -1,5 +1,6 @@
 package com.leonardo.jokenpo
 
+import android.media.Image
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
@@ -7,15 +8,19 @@ import android.widget.ImageView
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var imgComputador: ImageView
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        //Linhas iniciais padrão
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Escolha do computador
-        imgComputador = findViewById(R.id.imgComputador)
+        /*Em breve:
+
+        - Repassar tudo para duas funções: Escolha do Computador e Escolha do usuário
+        e utilizar o onCreate apenas para chamar as funções e obter os resultados;
+
+        - Criar um SQLite para salvar o histórico de jogos.
+
+        */
 
         //Opções do usuário
         val btnPedra = findViewById<Button>(R.id.btnPedra)
@@ -31,25 +36,28 @@ class MainActivity : AppCompatActivity() {
 
         //Opção Pedra
         btnPedra.setOnClickListener {
-            txtResultado.text = jokenpo(btnPedra.id, options)
             txtUserChoice.text = "Sua escolha: Pedra"
+            txtResultado.text = jokenpo(btnPedra.id, options)
         }
 
         //Opção Papel
         btnPapel.setOnClickListener {
-            txtResultado.text = jokenpo(btnPapel.id, options)
             txtUserChoice.text = "Sua escolha: Papel"
+            txtResultado.text = jokenpo(btnPapel.id, options)
         }
 
         //Opção Tesoura
         btnTesoura.setOnClickListener {
-            txtResultado.text = jokenpo(btnTesoura.id, options)
             txtUserChoice.text = "Sua escolha: Tesoura"
+            txtResultado.text = jokenpo(btnTesoura.id, options)
         }
     }
 
 
     private fun jokenpo(userChoice: Int, options: List<Int>): String {
+
+        //Escolha do computador
+        val imgComputador = findViewById<ImageView>(R.id.imgComputador)
 
         //Escolha aleatória do computador
         val computerChoice = options.random()
@@ -64,7 +72,6 @@ class MainActivity : AppCompatActivity() {
             R.drawable.tesoura -> "Tesoura"
             else -> "Erro"
         }
-
         txtComputerChoice.text = "Minha escolha: $computerChoiceTxt"
 
         //Resultado final
