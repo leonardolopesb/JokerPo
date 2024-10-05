@@ -7,65 +7,76 @@ import android.widget.ImageView
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
+
+    //Imagem do Computador
+    private lateinit var imgComputer: ImageView
+
+    //Imagem do Usuário
+    private lateinit var imgUser: ImageView
+
+    //Resultado final
+    private lateinit var txtResult: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        //Linhas iniciais padrão
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /*Em breve:
+        imgComputer = findViewById(R.id.imgComputador)
+        imgUser = findViewById(R.id.imgUsuario)
+        txtResult = findViewById(R.id.txtResultado)
 
-        - Repassar tudo para duas funções: Escolha do Computador e Escolha do usuário
-        e utilizar o onCreate apenas para chamar as funções e obter os resultados;
-
-        - Criar um SQLite para salvar o histórico de jogos.
-
-        */
+        //Em breve: Dividir as funções em outros arquivos; Criar um SQLite para salvar o histórico de jogos.
 
         //Opções do usuário
         val btnPedra = findViewById<Button>(R.id.btnPedra)
         val btnPapel = findViewById<Button>(R.id.btnPapel)
         val btnTesoura = findViewById<Button>(R.id.btnTesoura)
 
-        //Escolha do usuário
-        val options = listOf(R.drawable.pedra, R.drawable.papel, R.drawable.tesoura)
-
-        val imgUsuario = findViewById<ImageView>(R.id.imgUsuario)
-
-        //Resultado final
-        val txtResultado = findViewById<TextView>(R.id.txtResultado)
-
         //Opção Pedra
         btnPedra.setOnClickListener {
-            txtResultado.text = jokenpo(btnPedra.id, options)
-            imgUsuario.setImageResource(R.drawable.pedra)
+            userChoice(R.drawable.pedra)
+            val computerChoice = computerChoice()
+
+            txtResult.text = jokenPo(R.drawable.pedra, computerChoice)
+            setResultColor(txtResult.text.toString())
         }
 
         //Opção Papel
         btnPapel.setOnClickListener {
-            txtResultado.text = jokenpo(btnPapel.id, options)
-            imgUsuario.setImageResource(R.drawable.papel)
+            userChoice(R.drawable.papel)
+            val computerChoice = computerChoice()
+
+            txtResult.text = jokenPo(R.drawable.papel, computerChoice)
+            setResultColor(txtResult.text.toString())
         }
 
         //Opção Tesoura
         btnTesoura.setOnClickListener {
-            txtResultado.text = jokenpo(btnTesoura.id, options)
-            imgUsuario.setImageResource(R.drawable.tesoura)
+            userChoice(R.drawable.tesoura)
+            val computerChoice = computerChoice()
+
+            txtResult.text = jokenPo(R.drawable.tesoura, computerChoice)
+            setResultColor(txtResult.text.toString())
         }
     }
 
+    private fun userChoice(choice: Int) {
+        imgUser.setImageResource(choice)
+    }
 
-    private fun jokenpo(userChoice: Int, options: List<Int>): String {
+    private fun computerChoice(): Int {
+        val options = listOf(R.drawable.pedra, R.drawable.papel, R.drawable.tesoura)
+        val choice = options.random()
 
-        //Escolha do computador
-        val imgComputador = findViewById<ImageView>(R.id.imgComputador)
+        imgComputer.setImageResource(choice)
+        return choice
+    }
 
-        //Escolha aleatória do computador
-        val computerChoice = options.random()
-        imgComputador.setImageResource(computerChoice)
+    private fun jokenPo(userChoice: Int, computerChoice: Int): String {
 
         //Resultado final
         return when (userChoice) {
-            R.id.btnPedra ->
+            R.drawable.pedra ->
                 when (computerChoice) {
                     R.drawable.pedra -> "Empate!"
                     R.drawable.papel -> "Você perdeu!"
@@ -73,7 +84,7 @@ class MainActivity : AppCompatActivity() {
                     else -> "Erro"
                 }
 
-            R.id.btnPapel ->
+            R.drawable.papel ->
                 when (computerChoice) {
                     R.drawable.pedra -> "Você ganhou!"
                     R.drawable.papel -> "Empate!"
@@ -81,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                     else -> "Erro"
                 }
 
-            R.id.btnTesoura ->
+            R.drawable.tesoura ->
                 when (computerChoice) {
                     R.drawable.pedra -> "Você perdeu!"
                     R.drawable.papel -> "Você ganhou!"
@@ -90,6 +101,15 @@ class MainActivity : AppCompatActivity() {
                     }
 
             else -> "Erro"
+        }
+    }
+
+    private fun setResultColor(result: String) {
+        when {
+            result.contains("Você ganhou!") -> txtResult.setTextColor(getColor(R.color.green))
+            result.contains("Você perdeu!") -> txtResult.setTextColor(getColor(R.color.red))
+            result.contains("Empate!") -> txtResult.setTextColor(getColor(R.color.yellow))
+            else -> txtResult.setTextColor(getColor(R.color.white))
         }
     }
 }
