@@ -1,6 +1,5 @@
 package com.leonardo.jokenpo
 
-import android.media.Image
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
@@ -29,27 +28,28 @@ class MainActivity : AppCompatActivity() {
 
         //Escolha do usuário
         val options = listOf(R.drawable.pedra, R.drawable.papel, R.drawable.tesoura)
-        val txtUserChoice = findViewById<TextView>(R.id.txtUserChoice)
+
+        val imgUsuario = findViewById<ImageView>(R.id.imgUsuario)
 
         //Resultado final
         val txtResultado = findViewById<TextView>(R.id.txtResultado)
 
         //Opção Pedra
         btnPedra.setOnClickListener {
-            txtUserChoice.text = "Sua escolha: Pedra"
             txtResultado.text = jokenpo(btnPedra.id, options)
+            imgUsuario.setImageResource(R.drawable.pedra)
         }
 
         //Opção Papel
         btnPapel.setOnClickListener {
-            txtUserChoice.text = "Sua escolha: Papel"
             txtResultado.text = jokenpo(btnPapel.id, options)
+            imgUsuario.setImageResource(R.drawable.papel)
         }
 
         //Opção Tesoura
         btnTesoura.setOnClickListener {
-            txtUserChoice.text = "Sua escolha: Tesoura"
             txtResultado.text = jokenpo(btnTesoura.id, options)
+            imgUsuario.setImageResource(R.drawable.tesoura)
         }
     }
 
@@ -61,18 +61,7 @@ class MainActivity : AppCompatActivity() {
 
         //Escolha aleatória do computador
         val computerChoice = options.random()
-        val txtComputerChoice: TextView = findViewById(R.id.txtComputerChoice)
-
         imgComputador.setImageResource(computerChoice)
-
-        //Texto da escolha do computador
-        val computerChoiceTxt = when (computerChoice) {
-            R.drawable.pedra -> "Pedra"
-            R.drawable.papel -> "Papel"
-            R.drawable.tesoura -> "Tesoura"
-            else -> "Erro"
-        }
-        txtComputerChoice.text = "Minha escolha: $computerChoiceTxt"
 
         //Resultado final
         return when (userChoice) {
