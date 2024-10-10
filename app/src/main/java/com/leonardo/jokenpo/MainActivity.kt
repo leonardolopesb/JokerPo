@@ -61,13 +61,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun userChoice(choice: Int) {
+        //Imagem da opção do usuário
         imgUser.setImageResource(choice)
     }
 
     private fun computerChoice(): Int {
+        //Opções + escolha aleatória do computador
         val options = listOf(R.drawable.pedra, R.drawable.papel, R.drawable.tesoura)
         val choice = options.random()
 
+        //Imagem da opção do computador
         imgComputer.setImageResource(choice)
         return choice
     }
@@ -104,6 +107,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Mudar a cor do texto mediante o resultado final
     private fun setResultColor(result: String) {
         when {
             result.contains("Você ganhou!") -> txtResult.setTextColor(getColor(R.color.green))
