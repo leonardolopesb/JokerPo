@@ -1,6 +1,7 @@
 package com.leonardo.jokenpo
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.ImageView
@@ -58,6 +59,17 @@ class MainActivity : AppCompatActivity() {
             txtResult.text = jokenPo(R.drawable.tesoura, computerChoice)
             setResultColor(txtResult.text.toString())
         }
+
+        //Mostrar histórico
+        /*val btnHistory = findViewById<Button>(R.id.btnHistorico)
+
+        btnHistory.setOnClickListener {
+            val dbHelper = MatchHistory(this)
+            val cursor = dbHelper.getAllMatches()
+
+            cursor.close()
+            dbHelper.close()
+        }*/
     }
 
     private fun userChoice(choice: Int) {
@@ -76,6 +88,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun jokenPo(userChoice: Int, computerChoice: Int): String {
+
+        //Mostrar histórico
+        /*val dbHelper = MatchHistory(this)
+        val result = dbHelper.insertMatch(userChoice.toString(), computerChoice.toString(), txtResult.toString())
+        Log.d("MatchHistory", "Resultado: $result")
+        dbHelper.close()*/
 
         //Resultado final
         return when (userChoice) {
