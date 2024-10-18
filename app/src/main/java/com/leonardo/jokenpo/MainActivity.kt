@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //Mudar a cor do texto mediante o resultado final
+    //Altera a cor do texto mediante o resultado final
     private fun setResultColor(result: String) {
         when {
             result.contains("Você ganhou!") -> txtResult.setTextColor(getColor(R.color.green))
