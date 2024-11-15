@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import com.leonardo.jokenpo.MatchHistory.Companion.TABLE_NAME
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,8 +27,6 @@ class MainActivity : AppCompatActivity() {
         imgComputer = findViewById(R.id.imgComputador)
         imgUser = findViewById(R.id.imgUsuario)
         txtResult = findViewById(R.id.txtResultado)
-
-        //Em breve: Dividir as funções em outros arquivos; Criar um SQLite para salvar o histórico de jogos.
 
         //Opções do usuário
         val btnPedra = findViewById<Button>(R.id.btnPedra)
@@ -60,16 +60,41 @@ class MainActivity : AppCompatActivity() {
             setResultColor(txtResult.text.toString())
         }
 
-        //Mostrar histórico
-        /*val btnHistory = findViewById<Button>(R.id.btnHistorico)
+        //Botão do Histórico de Jogos
+        val btnHistory = findViewById<Button>(R.id.btnHistorico)
 
         btnHistory.setOnClickListener {
+            //Iniciando banco de dados
             val dbHelper = MatchHistory(this)
             val cursor = dbHelper.getAllMatches()
 
+            val history = StringBuilder()
+            while (cursor.moveToNext()) {
+                val id = cursor.getInt(cursor.getColumnIndexOrThrow(MatchHistory.COLUMN_ID))
+                val userChoice = getChoiceName(cursor.getInt(cursor.getColumnIndexOrThrow(MatchHistory.COLUMN_USER_CHOICE)))
+                val computerChoice = getChoiceName(cursor.getInt(cursor.getColumnIndexOrThrow(MatchHistory.COLUMN_COMPUTER_CHOICE)))
+                val result = cursor.getString(cursor.getColumnIndexOrThrow(MatchHistory.COLUMN_RESULT))
+
+                //Anexar jogo após jogo no histórico
+                history.append("${id}º jogo: $result\nUsuário: $userChoice\nComputador: $computerChoice\n\n")
+            }
+
+            //Finalizando banco de dados
             cursor.close()
             dbHelper.close()
-        }*/
+
+            //Toast com histórico
+            AlertDialog.Builder(this)
+                .setTitle("Histórico de Jogos")
+                .setMessage(history.toString())
+                .setPositiveButton("OK", null)
+                .setNegativeButton("Limpar") { _, _ ->
+                    dbHelper.writableDatabase.delete(TABLE_NAME, null, null)
+                    dbHelper.writableDatabase.execSQL("DELETE FROM sqlite_sequence WHERE name = '$TABLE_NAME'")
+                    dbHelper.close()
+                }
+                .show()
+        }
     }
 
     private fun userChoice(choice: Int) {
@@ -87,16 +112,19 @@ class MainActivity : AppCompatActivity() {
         return choice
     }
 
+    private fun getChoiceName(drawableId: Int): String {
+        return when (drawableId) {
+            R.drawable.pedra -> "Pedra"
+            R.drawable.papel -> "Papel"
+            R.drawable.tesoura -> "Tesoura"
+            else -> "Desconhecido"
+        }
+    }
+
     private fun jokenPo(userChoice: Int, computerChoice: Int): String {
 
-        //Mostrar histórico
-        /*val dbHelper = MatchHistory(this)
-        val result = dbHelper.insertMatch(userChoice.toString(), computerChoice.toString(), txtResult.toString())
-        Log.d("MatchHistory", "Resultado: $result")
-        dbHelper.close()*/
-
         //Resultado final
-        return when (userChoice) {
+        val result = when (userChoice) {
             R.drawable.pedra ->
                 when (computerChoice) {
                     R.drawable.pedra -> "Empate!"
@@ -123,9 +151,16 @@ class MainActivity : AppCompatActivity() {
 
             else -> "Erro"
         }
+
+        //Mostrar histórico
+        val dbHelper = MatchHistory(this)
+        dbHelper.insertMatch(userChoice.toString(), computerChoice.toString(), result)
+        dbHelper.close()
+
+        return result
     }
 
-    //Altera a cor do texto mediante o resultado final
+    //Altera a cor do texto de acordo com o resultado final
     private fun setResultColor(result: String) {
         when {
             result.contains("Você ganhou!") -> txtResult.setTextColor(getColor(R.color.green))
