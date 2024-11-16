@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper
 
 class MatchHistory(context: Context): SQLiteOpenHelper(context, "match_history", null, 1) {
     companion object {
+        //Definindo colunas
         const val TABLE_NAME = "match_history"
         const val COLUMN_ID = "id"
         const val COLUMN_USER_CHOICE = "user_choice"
@@ -15,6 +16,7 @@ class MatchHistory(context: Context): SQLiteOpenHelper(context, "match_history",
         const val COLUMN_RESULT = "result"
     }
 
+    //Criando tabela
     override fun onCreate(db: SQLiteDatabase?) {
         val createTable = "CREATE TABLE $TABLE_NAME (" +
                 "$COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -24,12 +26,13 @@ class MatchHistory(context: Context): SQLiteOpenHelper(context, "match_history",
         db?.execSQL(createTable)
     }
 
-
+    //Atualizando tabela (obrigação do SQLiteOpenHelper)
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         db?.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
         onCreate(db)
     }
 
+    //Inserindo dados à tabela
     fun insertMatch(userChoice: String, computerChoice: String, result: String) {
         val db = writableDatabase
         val values = ContentValues().apply {
@@ -41,6 +44,7 @@ class MatchHistory(context: Context): SQLiteOpenHelper(context, "match_history",
         db.close()
     }
 
+    //Recuperando dados da tabela
     fun getAllMatches(): Cursor {
         val db = readableDatabase
         return db.rawQuery("SELECT * FROM $TABLE_NAME", null)

@@ -1,7 +1,6 @@
 package com.leonardo.jokenpo
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.ImageView
@@ -13,10 +12,8 @@ class MainActivity : AppCompatActivity() {
 
     //Imagem do Computador
     private lateinit var imgComputer: ImageView
-
     //Imagem do Usuário
     private lateinit var imgUser: ImageView
-
     //Resultado final
     private lateinit var txtResult: TextView
 
@@ -24,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //Chamando o private lateinit
         imgComputer = findViewById(R.id.imgComputador)
         imgUser = findViewById(R.id.imgUsuario)
         txtResult = findViewById(R.id.txtResultado)
@@ -67,9 +65,10 @@ class MainActivity : AppCompatActivity() {
             //Iniciando banco de dados
             val dbHelper = MatchHistory(this)
             val cursor = dbHelper.getAllMatches()
-
             val history = StringBuilder()
+
             while (cursor.moveToNext()) {
+                //Chamando variáveis do banco de dados
                 val id = cursor.getInt(cursor.getColumnIndexOrThrow(MatchHistory.COLUMN_ID))
                 val userChoice = getChoiceName(cursor.getInt(cursor.getColumnIndexOrThrow(MatchHistory.COLUMN_USER_CHOICE)))
                 val computerChoice = getChoiceName(cursor.getInt(cursor.getColumnIndexOrThrow(MatchHistory.COLUMN_COMPUTER_CHOICE)))
@@ -83,12 +82,12 @@ class MainActivity : AppCompatActivity() {
             cursor.close()
             dbHelper.close()
 
-            //Toast com histórico
+            //Tela do Histórico de Jogos
             AlertDialog.Builder(this)
                 .setTitle("Histórico de Jogos")
                 .setMessage(history.toString())
                 .setPositiveButton("OK", null)
-                .setNegativeButton("Limpar") { _, _ ->
+                .setNegativeButton("Limpar Histórico") { _, _ ->
                     dbHelper.writableDatabase.delete(TABLE_NAME, null, null)
                     dbHelper.writableDatabase.execSQL("DELETE FROM sqlite_sequence WHERE name = '$TABLE_NAME'")
                     dbHelper.close()

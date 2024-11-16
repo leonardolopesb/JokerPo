@@ -11,12 +11,24 @@
     android:padding="16dp"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/btnHistorico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginTop="32dp"
+        android:text="Ver histórico"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/midnightblue"
+        />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="Vamos jogar?"
+        android:text="Vamos jogar JokenPo?"
+        android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="28sp"/>
 
@@ -170,26 +182,24 @@
 
     </LinearLayout>
 
-
     <TextView
         android:id="@+id/txtResultado"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="48dp"
         android:gravity="center"
         android:text="Resultado"
         android:textColor="@color/white"
         android:textSize="32sp"/>
 
-    <Button
-        android:id="@+id/btnHistorico"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/txtAssinatura"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginTop="32dp"
-        android:text="Ver histórico"
+        android:layout_marginTop="96dp"
+        android:gravity="center"
+        android:text="Feito por @leonardolopesb"
         android:textColor="@color/white"
-        android:backgroundTint="@color/midnightblue"
-        />
+        android:textSize="16sp"/>
 
 </LinearLayout>
