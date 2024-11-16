@@ -15,7 +15,7 @@
 
 | **Escolha do Usuário** | **Escolha do Computador** | **Resultado (a favor do usuário)** |
 | --- | --- | --- |
-| Pedra | Papel | <span style="color: green;">Vitória</span> |
+| Pedra | Papel | **<span style="color: green;">Vitória</span>** |
 | Pedra | Pedra | **<span style="color: orange;">Empate</span>** |
 | Pedra | Papel | **<span style="color: red;">Derrota</span>** |
 | Papel | Pedra | **<span style="color: green;">Vitória</span>** |
